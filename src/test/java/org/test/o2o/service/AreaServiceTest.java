@@ -44,7 +44,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class AreaServiceTest extends {
+public class AreaServiceTest {
     @Autowired
     private AreaService areaService;
     @Test

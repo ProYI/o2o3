@@ -32,6 +32,8 @@ import org.test.o2o.exceptions.ShopOperationException;
 import java.io.*;
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 
 /**
 

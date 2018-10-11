@@ -26,6 +26,8 @@ import org.test.o2o.enums.WechatAuthStateEnum;
 
 import java.util.Date;
 
+import static org.junit.Assert.assertEquals;
+
 /**
  * 〈微信账号测试〉
  */
