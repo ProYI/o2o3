@@ -52,7 +52,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/");
+        //registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/");
     }
 
     /**
@@ -79,7 +79,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
         //取消缓存
         viewResolver.setCache(false);
         //设置解析的前缀
-        viewResolver.setPrefix("/WEB-INF/html");
+        viewResolver.setPrefix("/WEB-INF/html/");
         //设置视图解析器的后缀
         viewResolver.setSuffix(".html");
         return viewResolver;
