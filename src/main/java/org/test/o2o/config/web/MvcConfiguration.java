@@ -58,6 +58,8 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/resources/");
+        //替代docBase配置以实现图片的加载
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:/home/o2o/image/upload/");
     }
 
     /**
