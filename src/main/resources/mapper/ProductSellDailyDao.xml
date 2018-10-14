@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.test.o2o.dao.ProductSellDailyDao">
+    <resultMap id="productSellDailyResultMap" type="org.test.o2o.entity.ProductSellDaily">
+        <result column="createTime" property="create_time"/>
+        <result column="total" property="total"/>
+        <association property="product" column="product_id" javaType="org.test.o2o.entity.Product">
+            <id column="product_id" property="productId"/>
+            <result column="product_name" property="productName"/>
+        </association>
+        <association property="shop" column="shop_id" javaType="org.test.o2o.entity.Shop">
+            <id column="shop_id" property="shopId"/>
+            <result column="shop_name" property="shopName"/>
+        </association>
+    </resultMap>
+
+    <select id="queryProductSellDailyList" resultMap="productSellDailyResultMap">
+        SELECT
+        psd.create_time,
+        psd.total,
+        s.shop_id,
+        s.shop_name,
+        p.product_id,
+        p.product_name
+        FROM tb_product_sell_daily psd, tb_shop s, tb_product p
+        <where>
+            psd.shop_id = s.shop_id
+            and psd.product_id = p.product_id
+            <!-- 按店铺精确查询 -->
+            <if test="productSellDailyCondition.shop!=null and productSellDailyCondition.shop.shopId!=null">
+                AND psd.shop_id = #{productSellDailyCondition.shop.shopId}
+            </if>
+            <!-- 按商品名模糊查询 -->
+            <if test="productSellDailyCondition.product!=null and productSellDailyCondition.product.productName!=null">
+                AND p.product_name like "%${productSellDailyCondition.product.productName}%"
+            </if>
+            <if test="beginTime!=null and endTime!=null">
+                AND psd.create_time BETWEEN #{beginTime} and #{endTime};
+            </if>
+            <if test="beginTime!=null and endTime==null">
+                AND psd.create_time &gt;= #{beginTime};
+            </if>
+            <if test="beginTime==null and endTime!=null">
+                AND psd.create_time &lt;= #{endTime};
+            </if>
+        </where>
+    </select>
+
+    <!-- 去掉日期的时分秒，今天统计前一天的商品销量-->
+    <insert id="insertProductSellDaily" parameterType="org.test.o2o.entity.UserProductMap">
+        INSERT INTO
+        tb_product_sell_daily(
+        SELECT
+        product_id, shop_id, create_time, COUNT(product_id) AS total
+        FROM tb_user_product_map
+        WHERE date_format(create_time, "%Y-%m-%d") = date_sub(curdate(), INTERVAL 1 DAY)
+        GROUP BY product_id)
+    </insert>
+</mapper>
