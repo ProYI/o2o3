@@ -42,7 +42,7 @@
             AND uam.operator_id = operator.user_id
             <!-- 按顾客信息精确查询 -->
             <if test="userAwardCondition.user!=null and userAwardCondition.user.userId!=null">
-                AND uam.user_id = #{userAwardCondition.userId}
+                AND uam.user_id = #{userAwardCondition.user.userId}
             </if>
             <!-- 按某个店铺精确查询 -->
             <if test="userAwardCondition.shop!=null and userAwardCondition.shop.shopId!=null">
