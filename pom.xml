@@ -47,6 +47,13 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- 引入热部署插件 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<!-- 添加mysql驱动依赖 -->
 		<dependency>
 			<groupId>mysql</groupId>

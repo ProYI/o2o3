@@ -68,7 +68,19 @@ public class ShopAdminController {
 
     @RequestMapping(value = "/productmanagement")
     public String productManagement() {
-        //转发至商品添加/编辑页面
+        //转发至商品管理页面
         return "shop/productmanagement";
+    }
+
+    @RequestMapping(value = "/shopauthmanagement")
+    public String shopAuthManagement() {
+        //转发至店铺授权页面
+        return "shop/shopauthmanage";
+    }
+
+    @RequestMapping(value = "/shopauthedit")
+    public String shopAuthEdit() {
+        //转发至授权信息修改页面
+        return "shop/shopauthedit";
     }
 }
