@@ -83,4 +83,16 @@ public class ShopAdminController {
         //转发至授权信息修改页面
         return "shop/shopauthedit";
     }
+
+    @RequestMapping(value = "/operationsuccess")
+    public String operationSuccess() {
+        //转发至操作成功的页面
+        return "shop/operationsuccess";
+    }
+
+    @RequestMapping(value = "/operationfail")
+    public String operationFail() {
+        //转发至操作失败的页面
+        return "shop/operationfail";
+    }
 }

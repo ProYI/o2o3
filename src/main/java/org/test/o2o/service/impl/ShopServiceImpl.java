@@ -17,10 +17,12 @@ package org.test.o2o.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.test.o2o.dao.ShopAuthMapDao;
 import org.test.o2o.dao.ShopDao;
 import org.test.o2o.dto.ImageHolder;
 import org.test.o2o.dto.ShopExecution;
 import org.test.o2o.entity.Shop;
+import org.test.o2o.entity.ShopAuthMap;
 import org.test.o2o.enums.ShopStateEnum;
 import org.test.o2o.exceptions.ShopOperationException;
 import org.test.o2o.service.ShopService;
@@ -50,8 +52,11 @@ import java.util.List;
 public class ShopServiceImpl implements ShopService {
     @Autowired
     private ShopDao shopDao;
+    @Autowired
+    private ShopAuthMapDao shopAuthMapDao;
 
     //注册店铺信息，包括图片处理
+    @Override
     @Transactional
     public ShopExecution addShop(Shop shop, ImageHolder thumbnail) {
         //空值判断
@@ -82,6 +87,23 @@ public class ShopServiceImpl implements ShopService {
                         throw new ShopOperationException("更新图片地址失败");
                     }
 
+                    //执行增加shopAuthMap操作
+                    ShopAuthMap shopAuthMap = new ShopAuthMap();
+                    shopAuthMap.setEmployee(shop.getOwner());
+                    shopAuthMap.setShop(shop);
+                    shopAuthMap.setTitle("店家");
+                    shopAuthMap.setTitleFlag(0);
+                    shopAuthMap.setCreateTime(new Date());
+                    shopAuthMap.setLastEditTime(new Date());
+                    shopAuthMap.setEnableStatus(1);
+                    try {
+                        effectedNum = shopAuthMapDao.insertShopAuthMap(shopAuthMap);
+                        if (effectedNum <= 0) {
+                            throw new ShopOperationException("授权创建失败");
+                        }
+                    } catch (Exception e) {
+                        throw new ShopOperationException("insertShopAuthMap error:" + e.getMessage());
+                    }
                 }
             }
         } catch (Exception e) {
