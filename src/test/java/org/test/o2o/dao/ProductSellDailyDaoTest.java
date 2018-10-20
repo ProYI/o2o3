@@ -49,10 +49,20 @@ public class ProductSellDailyDaoTest {
     }
 
     /**
+     * 测试无销量商品的添加功能
+     */
+    @Test
+    public void testBInsertProductSellDaily() {
+        //创建商品日销量统计
+        int effectedNum = productSellDailyDao.insertDefaultProductSellDaily();
+        assertEquals(0, effectedNum);
+    }
+
+    /**
     * 测试查询功能
     */
     @Test
-    public void testBQueryProductSellDaily() {
+    public void testCQueryProductSellDaily() {
         ProductSellDaily productSellDaily = new ProductSellDaily();
         //叠加店铺去查询
         Shop shop = new Shop();

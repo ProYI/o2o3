@@ -37,8 +37,10 @@ public class ProductSellDailyServiceImpl implements ProductSellDailyService{
     @Override
     public void dailyCalculate() {
         log.info("Quartz Running!");
+        //统计在tb_user_product_map里面产生销量的每个店铺的各件商品的日销量
         productSellDailyDao.insertProductSellDaily();
-        //System.out.println("Quartz跑起来了");
+        //统计余下的商品的日销量，全部置为0（为了迎合echarts的数据请求）
+        productSellDailyDao.insertDefaultProductSellDaily();
     }
 
     @Override
