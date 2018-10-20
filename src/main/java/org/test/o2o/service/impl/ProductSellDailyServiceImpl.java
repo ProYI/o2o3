@@ -19,7 +19,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.test.o2o.dao.ProductSellDailyDao;
+import org.test.o2o.entity.ProductSellDaily;
 import org.test.o2o.service.ProductSellDailyService;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 〈每日销量统计实现类〉
@@ -36,4 +40,10 @@ public class ProductSellDailyServiceImpl implements ProductSellDailyService{
         productSellDailyDao.insertProductSellDaily();
         //System.out.println("Quartz跑起来了");
     }
+
+    @Override
+    public List<ProductSellDaily> listProductSellDaily(ProductSellDaily productSellDailyCondition, Date beginTime, Date endTime) {
+        return productSellDailyDao.queryProductSellDailyList(productSellDailyCondition, beginTime, endTime);
+    }
+
 }

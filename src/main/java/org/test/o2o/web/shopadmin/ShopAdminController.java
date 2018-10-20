@@ -95,4 +95,10 @@ public class ShopAdminController {
         //转发至操作失败的页面
         return "shop/operationfail";
     }
+
+    @RequestMapping(value = "/productbuycheck")
+    public String productBuyCheck() {
+        //转发至店铺的消费记录的页面
+        return "shop/productbuycheck";
+    }
 }
