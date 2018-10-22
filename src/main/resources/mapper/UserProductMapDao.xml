@@ -18,8 +18,8 @@
             <result column="shop_name" property="shopName" />
         </association>
         <association property="operator" column="operator_id" javaType="org.test.o2o.entity.PersonInfo">
-            <id column="user_id" property="userId" />
-            <result column="name" property="name" />
+            <id column="operator_id" property="userId" />
+            <result column="operator_name" property="name" />
         </association>
     </resultMap>
 
@@ -35,7 +35,7 @@
         p.product_id,
         p.product_name,
         operator.user_id AS operator_id,
-        operator.name
+        operator.name AS operator_name
         FROM
         tb_user_product_map upm, tb_person_info buyer, tb_shop s, tb_product p, tb_person_info operator
         <where>

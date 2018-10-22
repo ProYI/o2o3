@@ -10,6 +10,7 @@ $(function () {
             }
             $("#shopInfo").attr("href", "/o2o/shopadmin/shopoperation?shopId=" + shopId);
             $("#shopAuth").attr("href", "/o2o/shopadmin/shopauthmanagement?shopId=" + shopId);
+            $("#userShopCheck").attr("href", "/o2o/shopadmin/usershopcheck?shopId=" + shopId);
         }
     });
 });

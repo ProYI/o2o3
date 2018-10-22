@@ -101,4 +101,16 @@ public class ShopAdminController {
         //转发至店铺的消费记录的页面
         return "shop/productbuycheck";
     }
+
+    @RequestMapping(value = "/usershopcheck")
+    public String userShopCheck() {
+        //转发至店铺用户积分统计的页面
+        return "shop/usershopcheck";
+    }
+
+    @RequestMapping(value = "/awarddelivercheck")
+    public String awardDeliverCheck() {
+        //转发至店铺积分兑换的页面
+        return "shop/awarddelivercheck";
+    }
 }
