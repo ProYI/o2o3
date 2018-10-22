@@ -113,4 +113,16 @@ public class ShopAdminController {
         //转发至店铺积分兑换的页面
         return "shop/awarddelivercheck";
     }
+
+    @RequestMapping(value = "/awardmanagement")
+    public String awardManagement() {
+        //奖品管理页面
+        return "shop/awardmanagement";
+    }
+
+    @RequestMapping(value = "/awardoperation")
+    public String awardEdit() {
+        //奖品编辑的页面
+        return "shop/awardoperation";
+    }
 }

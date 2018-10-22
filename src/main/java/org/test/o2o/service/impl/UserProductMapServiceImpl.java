@@ -40,7 +40,7 @@ public class UserProductMapServiceImpl implements UserProductMapService {
             int beginIndex = PageCalculator.calculateRowIndex(pageIndex, pageSize);
             //依据查询条件分页取出列表
             List<UserProductMap> userProductMapList = userProductMapDao.queryUserProductMapList(userProductCondition, beginIndex, pageSize);
-            //按照同等的查询提奥健获取总数
+            //按照同等的查询条件获取总数
             int count = userProductMapDao.queryUserProductMapCount(userProductCondition);
             UserProductMapExecution se = new UserProductMapExecution();
             se.setUserProductMapList(userProductMapList);
