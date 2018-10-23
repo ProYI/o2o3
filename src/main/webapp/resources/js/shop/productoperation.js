@@ -1,7 +1,6 @@
 $(function() {
     //从URL里获取productId参数的值
     var productId = getQueryString('productId');
-    var shopId = 1;
     //通过productId获取商品信息的URL
     var infoUrl = '/o2o/shopadmin/getproductbyid?productId=' + productId;
     //获取当前店铺设定的商品类别列表的URL
@@ -16,7 +15,7 @@ $(function() {
         getInfo(productId);
         isEdit = true;
     } else {
-        getCategory(shopId);
+        getCategory();
         productPostUrl = '/o2o/shopadmin/addproduct';
     }
 

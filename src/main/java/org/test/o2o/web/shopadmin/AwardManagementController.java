@@ -49,6 +49,102 @@ public class AwardManagementController {
     @Autowired
     private AwardService awardService;
 
+    /**
+     * 通过奖品Id获取奖品信息
+     * @param: request
+     * @return:
+     */
+    @RequestMapping(value = "/getawardbyid", method = RequestMethod.GET)
+    @ResponseBody
+    private Map<String, Object> getAwardById(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //从request中获取从前端传过来的awardId
+        long awardId = HttpServletRequestUtil.getLong(request, "awardId");
+        //空值判断
+        if (awardId > -1) {
+            //根据传入的Id获取奖品信息并返回
+            Award award = awardService.getAwardById(awardId);
+            modelMap.put("award", award);
+            modelMap.put("success", true);
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "empty awardId");
+        }
+        return modelMap;
+    }
+
+    /**
+     * 添加奖品信息
+     * @param: request
+     * @return:
+     */
+    @RequestMapping(value = "/addaward", method = RequestMethod.POST)
+    @ResponseBody
+    private Map<String, Object> addAward(HttpServletRequest request) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        //验证码校验
+        if (!CodeUtil.checkVerifyCode(request)) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "输入验证码错误");
+            return modelMap;
+        }
+        //接收前端参数的变量的初始化，包括奖品信息和缩略图信息
+        ObjectMapper mapper = new ObjectMapper();
+        Award award = null;
+        String awardStr = HttpServletRequestUtil.getString(request, "awardStr");
+        ImageHolder thumbnail = null;
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+        //请求中都带有multi字样，因此没法过滤，只能用来拦截外部非图片流的处理
+        //里面有缩略图的空值判断，请放心使用
+        try {
+            if (multipartResolver.isMultipart(request)) {
+                thumbnail = handleImage(request);
+            }
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.toString());
+            return modelMap;
+        }
+        try {
+            //尝试获取前端传过来的表单String流并将其换成Award实体类
+            award = mapper.readValue(awardStr, Award.class);
+        } catch (Exception e) {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", e.toString());
+            return modelMap;
+        }
+        //空值判断
+        if (award != null && thumbnail!=null) {
+            try {
+                //从session中获取当前店铺的Id并赋值给award，减少对前端数据的依赖
+                Shop currentShop = (Shop) request.getSession().getAttribute("currentShop");
+                award.setShopId(currentShop.getShopId());
+                //添加award
+                AwardExecution ae = awardService.addAward(award, thumbnail);
+                if (ae.getState() == AwardStateEnum.SUCCESS.getState()) {
+                    modelMap.put("success", true);
+                } else {
+                    modelMap.put("success", false);
+                    modelMap.put("errMsg", ae.getStateInfo());
+                }
+            } catch (RuntimeException e) {
+                modelMap.put("success", false);
+                modelMap.put("errMsg", e.toString());
+                return modelMap;
+            }
+        } else {
+            modelMap.put("success", false);
+            modelMap.put("errMsg", "请输入奖品信息");
+        }
+        return modelMap;
+    }
+
+
+    /**
+    * 获取全部奖品列表
+    * @param: request
+    * @return:
+    */
     @RequestMapping(value = "/listawardsbyshop", method = RequestMethod.GET)
     @ResponseBody
     private Map<String, Object> listAwardsByShop(HttpServletRequest request) {
@@ -76,6 +172,11 @@ public class AwardManagementController {
         return modelMap;
     }
 
+    /**
+     * 修改奖品信息
+     * @param: request
+     * @return:
+     */
     @RequestMapping(value = "/modifyaward", method = RequestMethod.POST)
     @ResponseBody
     private Map<String, Object> modifyAward(HttpServletRequest request) {
@@ -132,7 +233,7 @@ public class AwardManagementController {
             }
         } else {
             modelMap.put("success", false);
-            modelMap.put("errMsg", "请输入商品信息");
+            modelMap.put("errMsg", "请输入奖品信息");
         }
         return modelMap;
     }

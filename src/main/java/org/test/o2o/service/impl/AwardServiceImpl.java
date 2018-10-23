@@ -20,13 +20,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.test.o2o.dao.AwardDao;
 import org.test.o2o.dto.AwardExecution;
 import org.test.o2o.dto.ImageHolder;
-import org.test.o2o.dto.ProductExecution;
-import org.test.o2o.dto.UserProductMapExecution;
 import org.test.o2o.entity.Award;
-import org.test.o2o.entity.Product;
-import org.test.o2o.entity.UserProductMap;
 import org.test.o2o.enums.AwardStateEnum;
-import org.test.o2o.enums.ProductStateEnum;
+import org.test.o2o.exceptions.AwardOperationException;
 import org.test.o2o.exceptions.ProductOperationException;
 import org.test.o2o.service.AwardService;
 import org.test.o2o.util.ImageUtil;
@@ -69,8 +65,34 @@ public class AwardServiceImpl implements AwardService{
     }
 
     @Override
+    @Transactional
+    //1.处理缩略图，获取相对路径后赋给award
+    //2.往tb_award中写入奖品信息
     public AwardExecution addAward(Award award, ImageHolder thumbnail) {
-        return null;
+        //空值判断
+        if (award!=null && award.getShopId()!=null) {
+            //给award赋上初始值
+            award.setCreateTime(new Date());
+            award.setLastEditTime(new Date());
+            //award默认可用，即出现在前端展示系统中
+            award.setEnableStatus(1);
+            if (thumbnail != null) {
+                //若传入的图片信息不为空，则更新图片
+                addThumbnail(award, thumbnail);
+            }
+            try {
+                //添加奖品信息
+                int effectedNum = awardDao.insertAward(award);
+                if (effectedNum <= 0) {
+                    throw new AwardOperationException("创建商品失败");
+                }
+            } catch (Exception e) {
+                throw new AwardOperationException("创建商品失败:" + e.toString());
+            }
+            return new AwardExecution(AwardStateEnum.SUCCESS, award);
+        } else {
+            return new AwardExecution(AwardStateEnum.EMPTY, award);
+        }
     }
 
     @Override
