@@ -52,7 +52,8 @@
     <!-- 去掉日期的时分秒，今天统计前一天的商品销量-->
     <insert id="insertProductSellDaily" parameterType="org.test.o2o.entity.UserProductMap">
         INSERT INTO
-        tb_product_sell_daily(
+        tb_product_sell_daily(product_id, shop_id, create_time, total)
+        (
         SELECT
         product_id, shop_id, date_format(create_time, '%Y-%m-%d'), COUNT(product_id) AS total
         FROM tb_user_product_map

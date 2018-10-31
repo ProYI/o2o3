@@ -57,8 +57,9 @@ public class WechatController {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (out != null)
+            if (out != null) {
                 out.close();
+            }
         }
     }
 }

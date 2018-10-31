@@ -51,7 +51,7 @@ public class EncryptPropertyPlaceholderConfigurer extends PropertyPlaceholderCon
     private boolean isEncryptProp(String propertyName) {
         for (String encryptpropertyName : encryptPropNames) {
             if (encryptpropertyName.equals(propertyName))
-                return true;
+            {return true;}
         }
         return false;
     }

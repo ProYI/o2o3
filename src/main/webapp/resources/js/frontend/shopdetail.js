@@ -20,7 +20,12 @@ $(function() {
     addItems(pageSize, pageNum);
 
     //给兑换礼品的a标签赋值兑换礼品的URL
-    $('#exchangelist').attr('href', '/o2o/frontend/awardlist?shopId=' + shopId);
+    //$('#exchangelist').attr('href', '/o2o/frontend/awardlist?shopId=' + shopId);
+
+    $('#exchangelist').click(
+        function() {
+            window.location.href = '/o2o/frontend/awardlist?shopId=' + shopId;
+        });
 
     function getSearchDivData() {
         var url = searchDivUrl;

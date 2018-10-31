@@ -53,6 +53,6 @@ public class UserShopMapServiceImpl implements UserShopMapService{
 
     @Override
     public UserShopMap getUserShopMap(Long userId, Long shopId) {
-        return null;
+        return userShopMapDao.queryUserShopMap(userId, shopId);
     }
 }

@@ -29,18 +29,18 @@ public class LocalAuthExecution {
 
     public LocalAuthExecution() {
     }
-    ///本地账户操作失败的时候生成ShopExecution对象构造器
+    //本地账户操作失败的时候生成LocalAuthExecution对象构造器
     public LocalAuthExecution(LocalAuthStateEnum stateEnum) {
         this.state = stateEnum.getState();
         this.stateInfo = stateEnum.getStateInfo();
     }
-    ///本地账户操作成功的构造器
+    //本地账户操作成功的构造器
     public LocalAuthExecution(LocalAuthStateEnum stateEnum, LocalAuth localAuth) {
         this.state = stateEnum.getState();
         this.stateInfo = stateEnum.getStateInfo();
         this.localAuth = localAuth;
     }
-    ///本地账户操作成功的构造器
+    //本地账户操作成功的构造器
     public LocalAuthExecution(LocalAuthStateEnum stateEnum, List<LocalAuth> localAuthList) {
         this.state = stateEnum.getState();
         this.stateInfo = stateEnum.getStateInfo();

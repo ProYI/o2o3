@@ -19,4 +19,11 @@ public interface UserAwardMapService {
     * @return:
     */
     UserAwardMap getUserAwardMapById(Long AwardMapId);
+    
+    /**
+    * 领取奖品，添加映射信息
+    * @param:
+    * @return:
+    */
+    UserAwardMapExecution addUserAwardMap(UserAwardMap userAwardMap);
 }

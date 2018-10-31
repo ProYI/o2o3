@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.test.o2o.dto.UserAccessToken;
 import org.test.o2o.dto.WechatUser;
 import org.test.o2o.entity.PersonInfo;
@@ -35,9 +37,15 @@ import java.security.SecureRandom;
 /**
  * 〈微信工具类〉
  */
-
+@Configuration
 public class WechatUtil {
     private static Logger log = LoggerFactory.getLogger(WechatUtil.class);
+
+    private static String oauth2Url;
+    @Value("${wechat.oauth2.url}")
+    public void setOauth2Url(String oauth2Url) {
+        WechatUtil.oauth2Url = oauth2Url;
+    }
 
     /**
      * 获取UserAccessToken实体类
@@ -47,14 +55,11 @@ public class WechatUtil {
      * @throws IOException
      */
     public static UserAccessToken getUserAccessToken(String code) throws IOException {
-        String appId = "wx6fc211b53bb339e3";
-        log.debug("appId:" + appId);
-        String appsecret = "bf9d13e9353b491833fcc5c4839341e6";
-        log.debug("secret:" + appsecret);
+
+        log.debug("oauth2Url:" + oauth2Url);
 
         // 根据传入的code,拼接出访问微信定义好的接口的URL
-        String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appId + "&secret=" + appsecret
-                + "&code=" + code + "&grant_type=authorization_code";
+        String url = oauth2Url + code ;
         // 向相应URL发送请求获取token json字符串
         String tokenStr = httpsRequest(url, "GET", null);
         log.debug("userAccessToken:" + tokenStr);
@@ -146,9 +151,9 @@ public class WechatUtil {
             // 设置请求方式（GET/POST）
             httpUrlConn.setRequestMethod(requestMethod);
 
-            if ("GET".equalsIgnoreCase(requestMethod))
+            if ("GET".equalsIgnoreCase(requestMethod)) {
                 httpUrlConn.connect();
-
+            }
             // 当有数据需要提交时
             if (null != outputStr) {
                 OutputStream outputStream = httpUrlConn.getOutputStream();

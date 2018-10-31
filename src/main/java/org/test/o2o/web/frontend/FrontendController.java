@@ -66,4 +66,14 @@ public class FrontendController {
     private String showShopDetail() {
         return "frontend/shopdetail";
     }
+
+    /**
+     * 奖品列表路由
+     *
+     * @return:
+     */
+    @RequestMapping(value = "/awardlist")
+    private String showAwardList() {
+        return "frontend/awardlist";
+    }
 }

@@ -82,8 +82,8 @@ $(function() {
                         + '<div class="card-content">'
                         + '<div class="list-block media-list">' + '<ul>'
                         + '<li class="item-content">'
-                        + '<div class="item-media">' + '<img src="'
-                        + getContextPath() + item.shopImg + '" width="44">' + '</div>'
+                        + '<div class="item-media">' + '<img src="/o2o/image'
+                        + item.shopImg + '" width="44">' + '</div>'
                         + '<div class="item-inner">'
                         + '<div class="item-subtitle">' + item.shopDesc
                         + '</div>' + '</div>' + '</li>' + '</ul>'

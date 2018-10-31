@@ -22,7 +22,7 @@
             </a>
             <h1 class="title" id="shop-name">店铺详情</h1>
             <a class="button button-link button-nav pull-right" extemal href="#" id="exchangelist"
-                data-transition='slide-out'>奖品兑换<span class="icon icon-left"></span>
+                data-transition='slide-out'>奖品兑换<span class="icon icon-right"></span>
             </a>
         </header>
         <nav class="bar bar-tab">
@@ -111,13 +111,22 @@
     <div class="panel panel-right panel-reveal" id="panel-left-demo">
         <div class="content-block">
             <p>
-                <a href="/o2o/frontend/myRecord" class="close-panel">消费记录</a>
+                <a href="/o2o/local/accountbind?usertype=1" class="close-panel">绑定账号</a>
             </p>
             <p>
-                <a href="/o2o/frontend/myPoint" class="close-panel">我的积分</a>
+                <a href="/o2o/local/changepsw?usertype=1" class="close-panel">修改密码</a>
             </p>
             <p>
-                <a href="/o2o/frontend/pointRecord" class="close-panel">积分兑换记录</a>
+                <a href="/o2o/frontend/myrecord" class="close-panel">消费记录</a>
+            </p>
+            <p>
+                <a href="/o2o/frontend/mypoint" class="close-panel">我的积分</a>
+            </p>
+            <p>
+                <a href="/o2o/frontend/pointrecord" class="close-panel">积分兑换记录</a>
+            </p>
+            <p>
+                <a href="#" id="log-out" usertype="1" class="close-panel">登出系统</a>
             </p>
             <!-- Click on link with "close-panel" class will close panel -->
         </div>
