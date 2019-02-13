@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
-      <module fileurl="file://$PROJECT_DIR$/demo2boot.iml" filepath="$PROJECT_DIR$/demo2boot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/o2o.iml" filepath="$PROJECT_DIR$/o2o.iml" />
       <module fileurl="file://$PROJECT_DIR$/persistence/persistence.iml" filepath="$PROJECT_DIR$/persistence/persistence.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
       <module fileurl="file://$PROJECT_DIR$/web/web.iml" filepath="$PROJECT_DIR$/web/web.iml" />

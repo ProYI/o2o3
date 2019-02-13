@@ -14,7 +14,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="common" target="1.8" />
-      <module name="demo2boot" target="1.8" />
+      <module name="o2o" target="1.8" />
       <module name="persistence" target="1.8" />
       <module name="service" target="1.8" />
       <module name="web" target="1.8" />
