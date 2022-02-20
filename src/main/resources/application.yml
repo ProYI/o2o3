@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: o2o3
+server:
+  port: 8080
