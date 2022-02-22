@@ -15,3 +15,10 @@ spring:
 logging:
   level:
     online:proyi.o2o3: debug
+
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: del_flag
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)

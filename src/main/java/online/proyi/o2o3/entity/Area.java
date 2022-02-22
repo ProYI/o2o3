@@ -1,5 +1,6 @@
 package online.proyi.o2o3.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 
 @Data
 @Table(name = "tb_area")
+@TableName("tb_area")
 @Entity
 public class Area extends BaseEntiy {
 
